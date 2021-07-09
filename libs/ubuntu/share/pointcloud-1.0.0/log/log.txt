@@ -1,0 +1,264 @@
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24613 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_timeTraceback (most recent call last):
+  File "/home/luke/dev/PointCloudTool_bak/PointCloudAI/views/SourceToolbar.py", line 176, in initMenu
+    names = sorted(d.getCameraProfileNames().items(), key = lambda x: (d.configFile.getCameraProfile(x[0]).getLocation() << 16) + x[0], reverse = True)
+  File "/home/luke/dev/PointCloudTool_bak/PointCloudAI/views/SourceToolbar.py", line 176, in <lambda>
+    names = sorted(d.getCameraProfileNames().items(), key = lambda x: (d.configFile.getCameraProfile(x[0]).getLocation() << 16) + x[0], reverse = True)
+AttributeError: 'PointCloud.DepthCamera' object has no attribute 'configFile'
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24613 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24613 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24613 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x258 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+INFO: CameraSystem:: interface id 0,device id 1d6b:0102,id=0::1d6b:0102::
+DEBUG: DualCDKCameraFactory: new Dual camera 0::1d6b:0102::
+DEBUG: _defaultCameraProfileID:130 .......................
+INFO: CameraSystem::connect Successfully refreshed parameters for DualCDKCamera(0::1d6b:0102::).
+ERROR: DepthCamera:getParam Unknown parameter DualCDKCamera(0::1d6b:0102::).intg_time addItem prifle id : 130
+ d.getCurrentCameraProfileID() : 130
+ mode_list setCurrentIndex === 0 :
+ mode_list text DepthEyeDual11  
+ setPowerChangedCallback -00099999 
+disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+succeed  to disconnect depth camera
+WARNING: DepthCamera:free a pointcloud depth cameraDeleting logger...
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x7531 pid:0x3 serail:0000:00:14.0
+DEBUG:  Get USB device vid:0x22918 pid:0x1643 serail:200901010001
+DEBUG:  Get USB device vid:0x3034 pid:0x46888 serail:00e04c000001
+DEBUG:  Get USB device vid:0x1241 pid:0x5890 serail:
+DEBUG:  Get USB device vid:0x6127 pid:0x24717 serail:
+DEBUG:  Get USB device vid:0x7531 pid:0x2 serail:0000:00:14.0disconnectDepthCamera>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+depthCamera is not valid , can't perform disconnectDepthCamera
+Deleting logger...
