@@ -10,14 +10,37 @@
 #include <Frame.h>
 #include <Common.h>
 
+#include "DepthCamera.h"
 #include <Serializable.h>
 
-#define SONY_VENDOR_ID 0x0452
+#define PARAM_FILTER_ENABLE "filter_en"
+#define PARAM_PHASE_OFFSETS_FILE "phaseOffsetsFile"
+#define PARAM_PHASE_OFFSETS "phaseOffsets"
+#define PARAM_FRAME_WIDTH "frameWidth"
+#define PARAM_FRAME_HEIGHT "frameHeight"
+
+#define PARAM_PHASE_MAX_CORR "maxPhaseCorr"
+#define PARAM_PHASE_MIN_CORR "minPhaseCorr"
+#define PARAM_MEASURE_MODE "measureMode"
+#define PARAM_OUTPUT_MODE "outputMode"
+#define PARAM_MAX_FREQ "maxFreq"
+#define PARAM_MIN_FREQ "minFreq"
+#define PARAM_MAX_NONLINEARITY_COEFF "phaseMaxLinCoeff"
+#define PARAM_MIN_NONLINEARITY_COEFF "phaseMinLinCoeff"
+#define PARAM_PIXCELWISE_ENABLE "pixelwiseCalibEnable"
+#define PARAM_CALIB_DISABLE "calib_disable"
+#define PARAM_NONLINEAR_ENABLE "nonlinearityCalibEnable"
+#define PARAM_COMMON_PHASE_ENABLE "commonPhaseCalibEnable"
+
+#define PARAM_UNAMBIGUOUS_RANGE "unambiguous_range"
+#define PARAM_NEAR_DISTANCE "near_distance"
+
 namespace PointCloud
 {
   
 class FrameStreamWriter;
-  
+    
+
 class POINTCLOUD_EXPORT FrameGenerator
 {
 protected:
@@ -36,23 +59,22 @@ protected:
   
   template <typename T>
   inline bool _set(const String &name, const T &value); // Only for internal use
-  
 public:
   FrameGenerator(GeneratorIDType id, int frameType, uint8_t majorVersion, uint8_t minorVersion): _id(id), _frameType(frameType),
   _majorVersion(majorVersion), _minorVersion(minorVersion) 
   {
-    _frameGeneratorParameters["version"] = 
+      _frameGeneratorParameters["version"] =
         SerializablePtr(new SerializableUnsignedInt((majorVersion << 8) + minorVersion));
   }
   
   inline const GeneratorIDType &id() const { return _id; }
-  
-  inline void setFrameStreamWriter(Ptr<FrameStreamWriter> &writer) { _frameStreamWriter = writer; }
-    inline void removeFrameStreamWriter() { _frameStreamWriter = nullptr; }
+  virtual bool setParameters(DepthCamera* depthCamera,TofConfSetting* conf_setting,int calib_disable) = 0;
+  inline void  setFrameStreamWriter(Ptr<FrameStreamWriter> &writer) { _frameStreamWriter = writer; }
+  inline void  removeFrameStreamWriter() { _frameStreamWriter = nullptr; }
   
   virtual bool  readConfiguration(SerializedObject &object); // Read configuration from serialized data object
   virtual bool  writeConfiguration(); // Write configuration to FrameStreamWriter
-    virtual bool writeConfiguration(SerializedObject &object) // Write configuration to serialized data object
+  virtual bool  writeConfiguration(SerializedObject &object) // Write configuration to serialized data object
     {
         object.resize(_frameGeneratorParameters.serializedSize());
         if(!_frameGeneratorParameters.write(object))

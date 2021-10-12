@@ -10,19 +10,22 @@
 #include <Frame.h>
 #include <SerializedObject.h>
 #include "DataPacket.h"
-
+#define PACKET_MAJOR 0
+#define PACKET_MINOR  3
 namespace PointCloud
 {
     
     class CameraSystem;
     class POINTCLOUD_EXPORT FrameGenerator;
     typedef Ptr<FrameGenerator> FrameGeneratorPtr;
-
+    
     
     struct POINTCLOUD_EXPORT FrameStreamHeader
     {
         char version[2]; // 0 -> major, 1 -> minor
         GeneratorIDType generatorIDs[3]; // For raw (processed), depth and point cloud, in that order
+        uint32_t frameCount;
+        uint32_t frameRate;
     };
     
     struct POINTCLOUD_EXPORT FrameStreamPacket: public DataPacket
@@ -68,8 +71,8 @@ namespace PointCloud
         FrameStreamWriter(const String &filename, GeneratorIDType processedRawFrameGeneratorID, GeneratorIDType depthFrameGeneratorID, GeneratorIDType pointCloudFrameGeneratorID);
         FrameStreamWriter(OutputFileStream &stream, GeneratorIDType processedRawFrameGeneratorID, GeneratorIDType depthFrameGeneratorID, GeneratorIDType pointCloudFrameGeneratorID);
         
-        inline bool isStreamGood() { return _stream.good(); }
-        
+        inline bool isStreamGood() { return _stream.good(); };
+		bool setHeader(FrameStreamHeader& header) { memcpy((char*)&_header, (char*)&header, sizeof(FrameStreamHeader)); return true; };
         bool pause();
         bool resume();
         inline bool isPaused() { return _isPaused; }
@@ -83,8 +86,6 @@ namespace PointCloud
         bool close();
         
         virtual ~FrameStreamWriter() { close(); }
-        
-        
     };
     
     typedef Ptr<FrameStreamWriter> FrameStreamWriterPtr;
@@ -99,10 +100,9 @@ namespace PointCloud
         Vector<IndexType> _dataPacketLocation, _configPacketLocation;
         
         FrameStreamHeader _header;
-        
         size_t _currentPacketIndex; // index on _allPacketOffsets
         size_t _currentFrameIndex; // index on _dataPacketLocation
-        
+        size_t _startPacketIndex;
         CameraSystem &_sys;
         
         FrameGeneratorPtr _frameGenerator[3]; // for processed raw, depth and point cloud
@@ -151,7 +151,10 @@ namespace PointCloud
         }
         
         inline size_t currentPosition() { return _currentFrameIndex; }
-        inline size_t size() { return _dataPacketLocation.size(); }
+        inline size_t size() {
+                return _dataPacketLocation.size() - _startPacketIndex;
+            
+        }
         
         template <typename T>
         bool getStreamParam(const String &name, T &value) const;

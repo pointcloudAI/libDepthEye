@@ -22,7 +22,7 @@
 #endif
 
 #ifndef POINTCLOUD_DEPRECATED
-#  define POINTCLOUD_DEPRECATED 
+#  define POINTCLOUD_DEPRECATED __attribute__ ((__deprecated__))
 #endif
 
 #ifndef POINTCLOUD_DEPRECATED_EXPORT
@@ -39,4 +39,4 @@
 #  endif
 #endif
 
-#endif
+#endif /* POINTCLOUD_EXPORT_H */

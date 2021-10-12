@@ -8,7 +8,8 @@
 #define POINTCLOUD_CAMERASYSTEM_H
 
 #include <Common.h>
-#include <Filter/FilterFactory.h>
+#include <Device.h>
+#include <DepthCamera.h>
 
 namespace PointCloud
 {
@@ -37,14 +38,7 @@ public:
     DepthCameraPtr connect(const DevicePtr &device);
     bool disconnect(const DepthCameraPtr &depthCamera, bool reset = false);
     bool addDepthCameraFactory(DepthCameraFactoryPtr factory);
-    bool addFilterFactory(FilterFactoryPtr filterFactory);
-    Vector<String> getSupportedFilters();
-    bool getFilterDescription(const String &filterName, FilterDescription &description);
-    FilterPtr createFilter(const String &name, DepthCamera::FrameType type);
     bool getFrameGenerator(uint8_t frameType, GeneratorIDType generatorID, FrameGeneratorPtr &frameGenerator);
-    //Vector<DevicePtr> getProgrammableDevices();
-    //bool addDownloaderFactory(DownloaderFactoryPtr downloaderFactory);
-    //DownloaderPtr getDownloader(const DevicePtr &device);
 protected:
     void _init();
     void _loadLibraries(const Vector<String> &paths);
@@ -52,8 +46,6 @@ protected:
     Vector<DepthCameraLibraryPtr> _libraries;
     Map<String, DepthCameraFactoryPtr> _factories; // Key = device ID as returned by Device::id()
     Map<String, DepthCameraPtr> _depthCameras; // Key = device ID as returned by Device::id()
-    Map<String, FilterFactoryPtr> _filterFactories; // Key = filter name
-    //Map<String, DownloaderFactoryPtr> _downloaderFactories;// Key = device ID as returned by Device::id()
     Map<GeneratorIDType, DepthCameraFactoryPtr> _factoryForGeneratorID; // Key = frame generator ID
 };
 

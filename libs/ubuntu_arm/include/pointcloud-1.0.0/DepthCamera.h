@@ -3,14 +3,12 @@
  *
  * Copyright (c) 2018 PointCloud.ai Inc.
  */
-
 #ifndef POINTCLOUD_DEPTHCAMERA_H
 #define POINTCLOUD_DEPTHCAMERA_H
 
 #include <Device.h>
 #include <Frame.h>
 #include "VideoMode.h"
-#include <Filter/FilterSet.h>
 #include "FrameStream.h"
 #include "Timer.h"
 #include "Configuration.h"
@@ -20,11 +18,15 @@
 #define EBD_RAW12_DATA_LENGTH 396
 #define EBD_INT16_DATA_LENGTH 528
 
+#define MIN_UNAMBIGUOUS_RANGE 1.48
+#define MIN_NEAR_DISTANCE  0.1
 #define UNAMBIGUOUS_RANGE "unambiguous_range"
 #define NEAR_DISTANCE "near_distance"
 #define MEASURE_MODE "measure_mode"
 #define OUTPUT_MODE "output_mode"
 #define FILTER_EN "filter_en"
+
+#define COMPAT_DATA_EN "compat_data_en"
 #define INTG_SCALE "intg_scale"
 #define INTG_TIME "intg_time"
 
@@ -38,6 +40,13 @@
 #define EBD_TSENSOR_START_OFFSET 117
 #define EBD_TILLUM_OFFSET 2
 #define EBD_POWER_SUPPLIER 3
+
+#define ToF_CALIB_SECT_FREQUENCY_ID 0
+#define ToF_CALIB_SECT_CROSS_TALK_ID 1
+#define ToF_CALIB_SECT_NON_LINEARITY_ID 2
+#define ToF_CALIB_SECT_TEMPERATURE_ID 3
+#define ToF_CALIB_SECT_COMMON_PHASE_OFFSET_ID 4
+#define ToF_CALIB_SECT_PIXELWISE_PHASE_OFFSET_ID 5
 
 namespace PointCloud
 {
@@ -85,9 +94,10 @@ namespace PointCloud
     enum ChipType
     {
         UNKNOW_TYPE = 0,
-        IMX556 = 1,
-        MLX75027  = 2,
-        MLX75026 = 3
+        MLX75027  = 1,
+        MLX75026 = 2,
+        IMX556 = 3,
+        IMX570 = 4
     };
     
     struct LensCalib
@@ -115,7 +125,7 @@ namespace PointCloud
         int16_t minPhaseCorr = 0;
         uint8_t maxFreq = 100;
         uint8_t minFreq = 80;
-        
+        bool    compat_data_en = false;
         MeasureMode measure_mode = USE_DEALIAS;
         std::vector<uint16_t> maxNLPhaseCorr;
         std::vector<uint16_t> minNLPhaseCorr;
@@ -131,6 +141,10 @@ namespace PointCloud
         bool       pixelwiseCalibEnable = false;
         bool       nonlinearityCalibEnable;
         bool       commonPhaseCalibEnable;
+        bool       filterEnable = false;
+        float      unambiguousRange = 0;
+        float      near_distance = 0;
+        bool       factory_mode = 0;  //for calibration
     };
     
     class POINTCLOUD_EXPORT DepthCamera
@@ -151,7 +165,7 @@ namespace PointCloud
     public:
         DepthCamera(const String &name, const String &chipset, DevicePtr device);
         virtual ~DepthCamera();
-        virtual bool Init(CameraType camType = TOF_CAMERA){return true;}
+        virtual bool Init(){return true;}
         virtual bool UnInit(){return true;}
         virtual bool isInit() = 0;
         virtual bool isInitialized() const;
@@ -159,7 +173,7 @@ namespace PointCloud
         inline bool isPaused() const { return _isPaused; }
         virtual bool start(CameraType camType = TOF_CAMERA);
         bool stop();
-        void wait();
+        //void wait();
         bool reset();
         bool pause();
         bool resume();
@@ -222,31 +236,22 @@ namespace PointCloud
         // Return value:
         //   >= 0 => add successfully with return value as filter ID.
         //   -1 => failed to add filter
-        virtual int addFilter(FilterPtr p, FrameType frameType, int beforeFilterID = -1);
-        virtual FilterPtr getFilter(int filterID, FrameType frameType) const;
-        virtual bool removeFilter(int filterID, FrameType frameType);
-        virtual bool removeAllFilters(FrameType frameType);
-        virtual void resetFilters();
-        
-        inline const FilterSet<RawFrame> &getUnprocessedRawFilterSet() { return _unprocessedFilters; }
-        inline const FilterSet<RawFrame> &getProcessedRawFilterSet() { return _processedFilters; }
-        inline const FilterSet<DepthFrame> &getDepthFilterSet() { return _depthFilters; }
         
         // RegisterProgrammer is usually thread-safe to use outside directly
         inline RegisterProgrammerPtr getProgrammer() { return _programmer; }
         // Streamer may not be thread-safe
         inline StreamerPtr getStreamer() { return _streamer; }
         
-        inline bool reloadConfiguration() { return _configFile.read(_name + ".conf"); }
-        inline const Map<int, String> &getCameraProfileNames() { return _configFile.getCameraProfileNames(); }
-        inline int getCurrentCameraProfileID() { return _configFile.getCurrentProfileID(); }
+        inline bool reloadConfiguration() { return configFile.read(_name + ".conf"); }
+        inline const Map<int, String> &getCameraProfileNames() { return configFile.getCameraProfileNames(); }
+        inline int getCurrentCameraProfileID() { return configFile.getCurrentProfileID(); }
         
         int  addCameraProfile(const String &profileName, const int parentID);
         bool setCameraProfile(const int id, bool softApply = false);
         bool removeCameraProfile(const int id);
 
         virtual bool _onPowerChangedCallback(int isOn12V);
-        inline bool saveCameraProfileToHardware(int &id, bool saveParents = false, bool setAsDefault = false, const String &namePrefix = "") { return _configFile.saveCameraProfileToHardware(id, saveParents, setAsDefault, namePrefix); }
+        inline bool saveCameraProfileToHardware(int &id, bool saveParents = false, bool setAsDefault = false, const String &namePrefix = "") { return configFile.saveCameraProfileToHardware(id, saveParents, setAsDefault, namePrefix); }
         
     protected:
           bool _addParameters(const Vector<ParameterPtr> &params);
@@ -257,14 +262,12 @@ namespace PointCloud
           virtual bool _stop() = 0;
           virtual bool _close() = 0;
         
-          virtual bool _captureRawUnprocessedFrame(RawFramePtr &rawFrame) = 0;
-          virtual bool _processRawFrame(const RawFramePtr &rawFrameInput, RawFramePtr &rawFrameOutput) = 0; // here output raw frame will have processed data, like ToF data for ToF cameras
-          virtual bool _convertToDepthFrame(const RawFramePtr &rawFrame, DepthFramePtr &depthFrame) = 0;
+          virtual bool _captureRawUnprocessedFrame(RawDataFramePtr &rawFrame) = 0;
+          virtual bool _processRawFrame(const RawDataFramePtr &rawFrameInput, PhaAmpFramePtr &rawFrameOutput) = 0; // here output raw frame will have processed data, like ToF data for ToF cameras
+          virtual bool _convertToDepthFrame(const PhaAmpFramePtr &rawFrame, DepthFramePtr &depthFrame) = 0;
           virtual bool _convertToPointCloudFrame(const DepthFramePtr &depthFrame, PointCloudFramePtr &pointCloudFrame);
         
-          virtual void _captureLoop(); // the main capture loop
-          void _captureThreadWrapper(); // this is non-virtual and simply calls _captureLoop
-          bool _writeToFrameStream(RawFramePtr &rawUnprocessed);
+          bool _writeToFrameStream(RawDataFramePtr &rawUnprocessed);
         
           // These protected getters and setters are not thread-safe. These are to be directly called only when nested calls are to be done from getter/setter to another.
           // Otherwise use the public functions
@@ -289,20 +292,22 @@ namespace PointCloud
           virtual bool _setROI(const RegionOfInterest &roi) = 0;
           virtual bool _allowedROI(String &message) = 0;
           virtual bool _getFieldOfView(float &fovHalfAngle) const = 0;
-          inline void _makeID() { _id = _name + "(" + _device->id() + ")"; }
+          inline  void _makeID() { _id = _name + "(" + _device->id() + ")"; }
           virtual bool _reset() = 0;
           virtual bool _onReset() = 0;
           virtual bool _applyConfigParams(const ConfigSet *params);
           virtual bool _saveCurrentProfileID(const int id) = 0;
           virtual bool _getCurrentProfileID(int &id) = 0;
-          inline Map<String, CalibrationInformation> &_getCalibrationInformationStructure() { return _configFile._calibrationInformation; }
+          //inline Map<String, CalibrationInformation> &_getCalibrationInformationStructure() { return configFile._calibrationInformation; }
     private:
         mutable Mutex _accessMutex; // This is locked by getters and setters which are public
         mutable Mutex _frameStreamWriterMutex;
     protected:
-        CameraType _camType;
-        DevicePtr _device;
-        String    _name, _id, _chipset;
+        FrameSize   _frameSize;
+        CameraType  _camType;
+        DevicePtr   _device;
+        ChipType    _sensorChipType;
+        String      _name, _id, _chipset;
         
         Map<String, ParameterPtr> _parameters;
         RegisterProgrammerPtr     _programmer;
@@ -311,14 +316,7 @@ namespace PointCloud
         FrameGeneratorPtr _frameGenerators[3];
         bool _parameterInit;
         bool _running, _isPaused; // is capture running?
-
-        RawFramePtr _rawFrame;
-        FrameBufferManager<RawFrame>        _rawFrameBuffers;
-        FrameBufferManager<DepthFrame>      _depthFrameBuffers;
-        FrameBufferManager<PointCloudFrame> _pointCloudBuffers;
         
-        FilterSet<RawFrame> _unprocessedFilters, _processedFilters;
-        FilterSet<DepthFrame> _depthFilters;
         FrameStreamWriterPtr _frameStreamWriter;
         PointCloudFrameGeneratorPtr _pointCloudFrameGenerator;
         
@@ -326,9 +324,9 @@ namespace PointCloud
         PowerChangedCallback _powerChangedCallback;
         
         uint32_t _callBackTypesRegistered = 0;
-        ThreadPtr _captureThread = 0;
+        //ThreadPtr _captureThread = 0;
     public:
-        MainConfigurationFile _configFile; // This corresponds to camera specific configuration file
+        MainConfigurationFile configFile; // This corresponds to camera specific configuration file
     private:
         friend class UVC;
     };

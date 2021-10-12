@@ -374,14 +374,15 @@ public:
   virtual ~RangeParameterTemplate() {}
 };
 
-typedef RangeParameterTemplate<int> IntegerRangeParameterTemplate;
+typedef RangeParameterTemplate<int>   IntegerRangeParameterTemplate;
+typedef RangeParameterTemplate<uint>  UnsignedIntegerRangeParameterTemplate;
 typedef RangeParameterTemplate<float> FloatRangeParameterTemplate;
 
-
 #ifdef SWIG
-%template(IntegerRangeParameterTemplate) RangeParameterTemplate<int>;
-%template(UnsignedIntegerParameter) RangeParameterTemplate<uint>;
-%template(FloatRangeParameterTemplate) RangeParameterTemplate<float>;
+%template(IntegerRangeParameterTemplate)         RangeParameterTemplate<int>;
+%template(UnsignedIntegerRangeParameterTemplate) RangeParameterTemplate<uint>;
+//%template(UnsignedIntegerParameter) RangeParameterTemplate<uint>;
+%template(FloatRangeParameterTemplate)            RangeParameterTemplate<float>;
 #endif
 
 class POINTCLOUD_EXPORT IntegerParameter : public RangeParameterTemplate<int>
@@ -421,7 +422,37 @@ public:
   virtual ~IntegerParameter() {}
 };
 
-typedef RangeParameterTemplate<uint> UnsignedIntegerParameter;
+
+//typedef RangeParameterTemplate<uint> UnsignedIntegerParameter;
+
+class POINTCLOUD_EXPORT UnsignedIntegerParameter : public RangeParameterTemplate<uint>
+{
+protected:
+  virtual uint32_t _toRawValue(uint value) const
+  {
+      return (uint32_t)value;
+  }
+  
+  virtual uint _fromRawValue(uint32_t value) const
+  {
+      return value;
+  }
+  
+public:
+  UnsignedIntegerParameter(RegisterProgrammer &programmer, const String &name, const String &unit, uint32_t address, uint8_t registerLength, uint8_t msb, uint8_t lsb, 
+                 uint lowerLimit, uint upperLimit, const uint &defaultValue,
+                 const String &displayName, const String &description, Parameter::IOType ioType = Parameter::IO_READ_WRITE, const Vector<String> &dependencies = {}):
+  RangeParameterTemplate<uint>(programmer, name, unit, address, registerLength, msb, lsb, lowerLimit, upperLimit, defaultValue, displayName, description, ioType, dependencies)
+  {
+  }
+  
+  static Ptr<UnsignedIntegerParameter> typeCast(const ParameterPtr &other)
+  {
+    return std::dynamic_pointer_cast<UnsignedIntegerParameter>(other);
+  }
+  
+  virtual ~UnsignedIntegerParameter() {}
+};
 
 
 class POINTCLOUD_EXPORT FloatParameter : public RangeParameterTemplate<float>

@@ -35,7 +35,7 @@
 #include "PointCloudExports.h"
 
 #if defined(_WIN32) || defined(APPLE) ||  defined(ANDROID)
-//typedef uint32_t uint;
+typedef uint32_t uint;
 #else
 typedef unsigned int uint;
 #endif
@@ -89,7 +89,7 @@ typedef uint8_t ByteType;
 typedef uint64_t TimeStampType;
 typedef uint32_t GeneratorIDType;
 typedef uint64_t FileOffsetType;
-
+//typedef uint32_t uint;
 
 typedef std::complex<float> Complex;
 typedef std::complex<double> ComplexDouble;

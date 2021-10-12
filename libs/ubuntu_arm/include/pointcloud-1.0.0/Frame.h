@@ -24,8 +24,8 @@ namespace PointCloud
  */
 enum CameraType
 {
-    TOF_CAMERA = 0,
-    RGB_CAMERA ,
+    RGB_CAMERA = 0,
+    TOF_CAMERA ,
     DUAL_CAMERA
 };
 
@@ -57,6 +57,105 @@ public:
 };
 
 typedef Ptr<Frame> FramePtr;
+
+
+class POINTCLOUD_EXPORT PhaAmpFrame : public Frame
+{
+public:
+    Vector<uint16_t> pha_amp;
+    FrameSize size; 
+    virtual Ptr<Frame> copy() const
+    {
+        Ptr<Frame> f(new PhaAmpFrame());
+        return copyTo(f);
+    }
+    
+    virtual Ptr<Frame> copyTo(Ptr<Frame> &other) const
+    {
+        if(!other || !isSameType(*other))
+            other = Ptr<Frame>(new PhaAmpFrame());
+        
+        auto *t = dynamic_cast<PhaAmpFrame*>(other.get());
+        
+        t->id = id;
+        t->timestamp = timestamp;
+        t->pha_amp = pha_amp;
+        t->size = size;
+        return other;
+    }
+    
+    virtual Ptr<Frame> newFrame() const
+    {
+        PhaAmpFrame *t = new PhaAmpFrame();
+        t->pha_amp.resize(pha_amp.size());
+        t->size = size;
+        return FramePtr(t);
+    }
+    
+    virtual bool isSameType(const Frame &other) const
+    {
+        const PhaAmpFrame *f = dynamic_cast<const PhaAmpFrame *>(&other);
+        return f;
+    }
+    
+    static Ptr<PhaAmpFrame > typeCast(FramePtr ptr)
+    {
+        return std::dynamic_pointer_cast<PhaAmpFrame >(ptr);
+    }
+    
+    virtual bool isSameSize(const Frame &other) const
+    {
+        const PhaAmpFrame *f = dynamic_cast<const PhaAmpFrame *>(&other);
+        return (f && size == f->size);
+    }
+    
+    virtual bool serialize(SerializedObject &object) const
+    {
+        size_t s = sizeof(id) + sizeof(timestamp) +
+        pha_amp.size()*sizeof(uint16_t)  +
+        sizeof(size_t)*2;
+        
+        object.resize(s);
+        
+        object.put((const char *)&id, sizeof(id));
+        object.put((const char *)&timestamp, sizeof(timestamp));
+        object.put((const char *)&size.width, sizeof(size.width));
+        object.put((const char *)&size.height, sizeof(size.height));
+        object.put((const char *)pha_amp.data(), sizeof(uint16_t)*pha_amp.size());
+        
+        return true;
+    }
+    
+    virtual bool deserialize(SerializedObject &object)
+    {
+        object.get((char *)&id, sizeof(id));
+        object.get((char *)&timestamp, sizeof(timestamp));
+        
+        object.get((char *)&size.width, sizeof(size.width));
+        object.get((char *)&size.height, sizeof(size.height));
+        
+        unsigned int frameSize = size.width*size.height;
+        pha_amp.resize(frameSize*2);
+        
+        object.get((char *)pha_amp.data(), sizeof(uint16_t)*pha_amp.size());
+        return true;
+    }
+    
+	virtual  uint16_t *amplitude() const
+	{
+		return (uint16_t*)pha_amp.data() + size.width*size.height;
+	}
+
+	virtual  uint16_t *phase() const
+	{
+		return(uint16_t*)pha_amp.data();
+	}
+
+
+    virtual ~PhaAmpFrame() {}
+};
+
+typedef Ptr<PhaAmpFrame> PhaAmpFramePtr;
 
 class POINTCLOUD_EXPORT DepthFrame: public Frame
 {
@@ -207,6 +306,7 @@ public:
 };
 
 typedef Ptr<ToFRawFrame> ToFRawFramePtr;
+
 
 template <typename PhaseByteType, typename AmbientByteType>
 class POINTCLOUD_EXPORT  ToFRawFrameTemplate : public ToFRawFrame
@@ -416,7 +516,8 @@ public:
   virtual ~ToFRawFrameTemplate() {}
 };
 
-    typedef Ptr<ToFRawFrameTemplate<uint16_t,uint8_t> > ToFRawFrameTemplatePtr;
+typedef Ptr<ToFRawFrameTemplate<uint16_t,uint8_t> > ToFRawFrameTemplatePtr;
+
 
 //typedef ToFRawFrameTemplate<uint16_t, uint8_t>  Uint1608ToFRawFrameTemplate;
 
@@ -661,6 +762,7 @@ public:
 
 typedef Ptr<RawDataFrame> RawDataFramePtr;
 
+
 class POINTCLOUD_EXPORT PointCloudFrame : public Frame
 {
 public:
@@ -781,6 +883,8 @@ typedef Ptr<XYZPointCloudFrame> XYZPointCloudFramePtr;
 //coz template class can't export symbol in header file
 template class POINTCLOUD_EXPORT PointCloudFrameTemplate<Point>;
 template class POINTCLOUD_EXPORT PointCloudFrameTemplate<IntensityPoint>;
+
+//template class POINTCLOUD_EXPORT PhaAmpFrame<uint16_t>;
 template class POINTCLOUD_EXPORT ToFRawFrameTemplate<uint16_t, uint8_t>;
 template class POINTCLOUD_EXPORT ToFRawIQFrameTemplate<int16_t>;
 #endif

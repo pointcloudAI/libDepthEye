@@ -41,8 +41,11 @@ protected:
     String installPath;
     String environmentVariable;
   };
-  
+#if defined(UNICODE)
+  std::wstring _sdkPath;
+#else
   String _sdkPath;
+#endif
   String _sdkVersion;
   
   Vector<String> _pathKeys;

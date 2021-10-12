@@ -22,7 +22,7 @@ protected:
   virtual bool _onWriteConfiguration();
 public:
   PointCloudFrameGenerator();
-  
+  bool setParameters(DepthCamera* depthCamera,TofConfSetting* conf_setting,int calib_disable);
   bool setParameters(uint32_t left, uint32_t top, uint32_t width, uint32_t height, 
                      uint32_t rowsToMerge, uint32_t columnsToMerge,uint32_t amp_threhold,float max_range,
                      float fx, float fy, float cx, float cy, float k1, float k2, float k3, float p1, float p2);

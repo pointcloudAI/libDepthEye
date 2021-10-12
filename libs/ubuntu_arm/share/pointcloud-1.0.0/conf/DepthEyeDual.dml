@@ -85,21 +85,21 @@
 
 				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7760" max="256" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
 					<rangeList>
-						<range address="776" bankId="0" lsb="0" msb="7"/>
+						<range address="784" bankId="0" lsb="0" msb="7"/>
 					</rangeList>
 					<valueList/>
 				</property>
 
 				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7770" max="65535" min="0" readonly="0" signed="0" strobe="0" totalBits="16" units="">
 					<rangeList>
-						<range address="777" bankId="0" lsb="0" msb="15"/>
+						<range address="785" bankId="0" lsb="0" msb="15"/>
 					</rangeList>
 					<valueList/>
 				</property>
 
 				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7790" max="4294967295" min="0" readonly="0" signed="0" strobe="0" totalBits="32" units="">
 					<rangeList>
-						<range address="779" bankId="0" lsb="0" msb="31"/>
+						<range address="787" bankId="0" lsb="0" msb="31"/>
 					</rangeList>
 					<valueList/>
 				</property>
@@ -1150,7 +1150,6 @@
 							<propertyList>
 								<property desc="Grouped Parameter Hold Setting within the same frame" name="grp_param_hold" propertyId="2580"/>
 								<property desc="Slave/Master Mode 0/1" name="tmaster" propertyId="82240"/>
-								<property desc="Chip type 0xa1 or 0xb1" name="chip_type" propertyId="7760"/>
 							</propertyList>
 						</group>
 
@@ -1278,7 +1277,7 @@
 									<property desc="360 [deg] x GDPHS / 8 for phase6" name="gdphs5" propertyId="86300"/>
 									<property desc="360 [deg] x GDPHS / 8 for phase5" name="gdphs4" propertyId="86301"/>
 									<property desc="360 [deg] x GDPHS / 8 for phase8" name="gdphs7" propertyId="86310"/>
-									<property desc="360 [deg] x GDPHS / 8 for phase7" name="gdphs6" propertyId="86311"/>
+									<propertyId desc="360 [deg] x GDPHS / 8 for phase7" name="gdphs6" propertyId="86311"/>
 								</propertyList>
 						</group>
 						<group desc="" name="fmod_group">

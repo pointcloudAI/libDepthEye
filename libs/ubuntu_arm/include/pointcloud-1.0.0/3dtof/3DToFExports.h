@@ -22,7 +22,7 @@
 #endif
 
 #ifndef TOFCDK_DEPRECATED
-#  define TOFCDK_DEPRECATED 
+#  define TOFCDK_DEPRECATED __attribute__ ((__deprecated__))
 #endif
 
 #ifndef TOFCDK_DEPRECATED_EXPORT
@@ -39,4 +39,4 @@
 #  endif
 #endif
 
-#endif
+#endif /* TOFCAM_EXPORT_H */

@@ -53,8 +53,8 @@ public:
 
 size_t SerializedObject::get(char *bytes, size_t size)
 {
-  size = std::min(size, _bytes.size() - _getOffset);
-  
+  //size = std::min(size, _bytes.size() - _getOffset);
+  size = size > _bytes.size() - _getOffset ? _bytes.size() - _getOffset : size;
   if(size == 0)
     return 0;
   
@@ -67,8 +67,9 @@ size_t SerializedObject::get(char *bytes, size_t size)
 
 size_t SerializedObject::put(const char *bytes, size_t size)
 {
-  size = std::min(size, _bytes.size() - _putOffset);
-  
+  //size = std::min(size, _bytes.size() - _putOffset);
+
+  size = size > _bytes.size() - _putOffset ? _bytes.size() - _putOffset : size;
   if(size == 0)
     return 0;
   

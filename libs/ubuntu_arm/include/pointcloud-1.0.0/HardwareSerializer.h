@@ -5,7 +5,8 @@
  */
 
 #include "Common.h"
-#include "USBIO.h"
+//#include "USBIO.h"
+#include "Logger.h"
 #include "SerializedObject.h"
 
 /**
@@ -24,10 +25,15 @@ class POINTCLOUD_EXPORT HardwareSerializer
 {
 protected:
   uint8_t _ioRequestCode, _sizeRequestCode;
-  USBIOPtr _usbIO;
+  //USBIOPtr _usbIO;
   bool isUseCRC;
+  bool isInit;
 public:
-  HardwareSerializer() {}
+  HardwareSerializer()
+  {
+      isUseCRC = false;
+      isInit = true;
+  }
   
   /**
    * 
@@ -36,12 +42,13 @@ public:
    * @param sizeRequestCode -- request code to read size of serialized data in hardware
    * 
    */
+/*
   HardwareSerializer(USBIOPtr &usbIO, uint8_t ioRequestCode, uint8_t sizeRequestCode): 
     _ioRequestCode(ioRequestCode),  _sizeRequestCode(sizeRequestCode),_usbIO(usbIO)
     {
         isUseCRC = false;
     }
-  
+  */
     bool checkCRC(Version &version)
     {
         if(version.major == 0 && version.minor == 1)
@@ -73,10 +80,11 @@ public:
    */
   bool writeToFile(const String &filename, Version &version, TimeStampType &timestamp, SerializedObject &so);
   
-  inline void setUSBIO(USBIOPtr &usbIO) { _usbIO = usbIO; }
+  //inline void setUSBIO(USBIOPtr &usbIO) { _usbIO = usbIO; }
   
-  virtual operator bool () { return _usbIO.get() != nullptr; }
-  
+  //virtual operator bool () { return _usbIO.get() != nullptr; }
+  virtual operator bool () { return isInit; }
+    
   /**
    * Serialized size in hardware is assumed to be 4 bytes long in big endian format
    */
