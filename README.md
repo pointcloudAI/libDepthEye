@@ -23,7 +23,7 @@ The IMX556 is a fully integrated optical Time-of-Flight (ToF) camera sensor. The
 |- | :-: | 
 |[Dependent library files](https://github.com/pointcloudAI/libDepthEye/tree/master/libs) |We provide SDK for those platforms : Linux \ Mac OS \ Windows .|
 |[Code Samples](https://github.com/pointcloudAI/libDepthEye/tree/master/examples) | These simple examples demonstrate how to easily use the SDK to include code snippets that access the camera into your applications. Check some of the C++ examples including capture, pointcloud parsing.
-|Tools | [DepthEyeViewer](https://github.com/pointcloudAI/tools_and_resources/tree/master/windows_viewer) is a visualization tool which is based on the libDepthEye SDK API. |
+|Tools | [DepthEyeViewer](http://www.pointcloud.ai/doc/DepthEyeViewer_1.3.2_210807.exe.zip) is a visualization tool which is based on the libDepthEye SDK API. |
 |Wrappers | [Python](https://github.com/pointcloudAI/libDepthEye/tree/master/wrappers/python) API, ROS, OpenCV and more to come |
 
 ## Visualization tool Snapshot
