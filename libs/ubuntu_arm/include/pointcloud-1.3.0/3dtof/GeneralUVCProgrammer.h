@@ -37,12 +37,15 @@
 #define SUB_RSEQ_LNUM "sub_rseq_lnum"
 #define SUB_VBLK1 "sub_vblk1"
 #define MICR_LNUM "micr_lnum"
-
+#define CHIP_TYPE "device_type"
 #define INTG_DUTY_CYCLE "intg_duty_cycle"
 #define AMP_THREHOLD "amp_threhold"
 #define INTG_SCALE "intg_scale"
 #define INTG_TIME "intg_time"  // Integration time
 #define EXAREA_INTG00 "exarea_intg_00"
+
+#define REG_MLX75027 27
+#define REG_MLX75026 26
 /* COMMAND CODE */
 #define IMX556_I2C_ADDRESS  0x57
 #define MOD_FREQ_CMD 0x68

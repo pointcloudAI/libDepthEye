@@ -83,21 +83,21 @@
 					<valueList/>
 				</property>
 
-				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7760" max="256" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
+				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7840" max="256" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
 					<rangeList>
 						<range address="784" bankId="0" lsb="0" msb="7"/>
 					</rangeList>
 					<valueList/>
 				</property>
 
-				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7770" max="65535" min="0" readonly="0" signed="0" strobe="0" totalBits="16" units="">
+				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7850" max="65535" min="0" readonly="0" signed="0" strobe="0" totalBits="16" units="">
 					<rangeList>
 						<range address="785" bankId="0" lsb="0" msb="15"/>
 					</rangeList>
 					<valueList/>
 				</property>
 
-				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7790" max="4294967295" min="0" readonly="0" signed="0" strobe="0" totalBits="32" units="">
+				<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="7870" max="4294967295" min="0" readonly="0" signed="0" strobe="0" totalBits="32" units="">
 					<rangeList>
 						<range address="787" bankId="0" lsb="0" msb="31"/>
 					</rangeList>
@@ -416,6 +416,13 @@
 					<valueList/>
 			</property>
 			
+	
+			<property aid_0="0" default="0" desc="factory Chip type for mlx027/26" function="" fuseId="-1" id="7760" max="255" min="0" readonly="0" signed="0" strobe="0" totalBits="5" units="">
+					<rangeList>
+						<range address="776" bankId="0" lsb="3" msb="7"/>
+					</rangeList>
+					<valueList/>
+			</property>
 
 			<property aid_0="0" default="0" desc="" function="" fuseId="-1" id="86800" max="16" min="0" readonly="0" signed="0" strobe="0" totalBits="4" units="">
 					<rangeList>
@@ -1137,6 +1144,37 @@
 				</rangeList>
 				<valueList/>
 			</property>
+
+			<property aid_0="" default="0" desc="SENSOR_ID_HEADER" function="" fuseId="-1" id="0" max="255" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
+				<rangeList>
+					<range address="0" bankId="0" lsb="0" msb="7"/>
+				</rangeList>
+				<valueList/>
+			</property>
+			<property aid_0="" default="0" desc="SENSOR_MANUF_ID" function="" fuseId="-1" id="10" max="16777215" min="0" readonly="0" signed="0" strobe="0" totalBits="24" units="">
+				<rangeList>
+					<range address="1" bankId="0" lsb="0" msb="23"/>
+				</rangeList>
+				<valueList/>
+			</property>
+			<property aid_0="" default="0" desc="SENSOR_WAFER" function="" fuseId="-1" id="220" max="255" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
+				<rangeList>
+					<range address="22" bankId="0" lsb="0" msb="7"/>
+				</rangeList>
+				<valueList/>
+			</property>
+			<property aid_0="" default="0" desc="SENSOR_INTERNAL_CODE" function="" fuseId="-1" id="230" max="65535" min="0" readonly="0" signed="0" strobe="0" totalBits="16" units="">
+				<rangeList>
+					<range address="23" bankId="0" lsb="0" msb="15"/>
+				</rangeList>
+				<valueList/>
+			</property>
+			<property aid_0="" default="0" desc="SENSOR_REV_NUMBER" function="" fuseId="-1" id="250" max="255" min="0" readonly="0" signed="0" strobe="0" totalBits="8" units="">
+				<rangeList>
+					<range address="25" bankId="0" lsb="0" msb="7"/>
+				</rangeList>
+				<valueList/>
+			</property>
 		</propertyList>
 			
 	</propertyView>
@@ -1164,9 +1202,9 @@
 								<property desc="verify status 1-ok 0-failed" name="bist_jdg" propertyId="5200"/>
 								<property desc="OTP Read Trigger" name="otpbufread" propertyId="5410"/>
 
-								<property desc="Chip type 0xa1 or 0xb1 or 0xc1" name="chip_type" propertyId="7760"/>
-								<property desc="operator id" name="opt_id" propertyId="7770"/>
-								<property desc="module id timestamp" name="mod_id" propertyId="7790"/>
+								<property desc="pointcloud.ai Chip type 0xa1 or 0xb1 or 0xc1" name="pt_chip_type" propertyId="7840"/>
+								<property desc="operator id" name="opt_id" propertyId="7850"/>
+								<property desc="module id timestamp" name="mod_id" propertyId="7870"/>
 							</propertyList>
 						</group>
 
@@ -1277,7 +1315,7 @@
 									<property desc="360 [deg] x GDPHS / 8 for phase6" name="gdphs5" propertyId="86300"/>
 									<property desc="360 [deg] x GDPHS / 8 for phase5" name="gdphs4" propertyId="86301"/>
 									<property desc="360 [deg] x GDPHS / 8 for phase8" name="gdphs7" propertyId="86310"/>
-									<propertyId desc="360 [deg] x GDPHS / 8 for phase7" name="gdphs6" propertyId="86311"/>
+									<property desc="360 [deg] x GDPHS / 8 for phase7" name="gdphs6" propertyId="86311"/>
 								</propertyList>
 						</group>
 						<group desc="" name="fmod_group">
@@ -1305,6 +1343,7 @@
 								<property desc="Internal drive setting" name="pulse_timing1" propertyId="211210"/>
 								<property desc="Internal drive setting" name="pulse_timing2" propertyId="211250"/>
 								<property desc="Length of Micro Frames micor_LNUM*HMAX 4Byte" name="micr_lnum" propertyId="84560"/>
+								<property desc="factory Chip type mlx027=027 mlx026=26" name="f_chip_type" propertyId="7760"/>
 								<property desc="Error Info" name="rngchk_outmode" propertyId="53070"/>	
 							</propertyList>
 						</group>
@@ -1436,6 +1475,19 @@
 								<property desc="Static Low/High Illumination signal(MOD) setting(Laser) for phases" name="gdlcnsth6" propertyId="86251"/>
 								<property desc="Static Low/High Illumination signal(MOD) setting(Laser) for phases" name="gdlcnsth5" propertyId="86252"/>
 								<property desc="Static Low/High Illumination signal(MOD) setting(Laser) for phases" name="gdlcnsth4" propertyId="86253"/>
+							</propertyList>
+						</group>
+					</groupList>
+				</section>
+				<section desc="" name="manufactory_info">
+					<groupList>
+						<group desc="" name="sensor_id">
+							<propertyList>
+								<property desc="SENSOR_ID_HEADER" name="sensor_id_header" propertyId="0"/>
+								<property desc="SENSOR_MANUF_ID" name="sensor_manuf_id" propertyId="10"/>
+								<property desc="SENSOR_WAFER" name="sensor_wafer" propertyId="220"/>
+								<property desc="SENSOR_INTERNAL_CODE" name="sensor_internal_code" propertyId="230"/>
+								<property desc="SENSOR_REV_NUMBER" name="sensor_rev_number" propertyId="250"/>
 							</propertyList>
 						</group>
 					</groupList>

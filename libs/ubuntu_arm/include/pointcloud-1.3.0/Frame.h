@@ -34,7 +34,7 @@ class POINTCLOUD_EXPORT Frame
 public:
   TimeStampType timestamp = 0; // Unix timestamp in micro-seconds
   int id = -1;
-  
+  int last_id = -1;
   inline operator String()
   {
     std::ostringstream s;
@@ -684,8 +684,9 @@ public:
 class POINTCLOUD_EXPORT RawDataFrame : public RawFrame
 {
 public:
+    int tsensor = -40;
+    int tillum  = -40;
   Vector<ByteType> data;
-
   virtual Ptr<Frame> copy() const
   {
     Ptr<Frame> f(new RawDataFrame());
@@ -700,7 +701,10 @@ public:
     auto *r = dynamic_cast<RawDataFrame *>(other.get());
     r->id = id;
     r->timestamp = timestamp;
+    r->tsensor = tsensor;
+    r->tillum = tillum;
     r->data = data;
+    
     return other;
   }
   
@@ -730,16 +734,17 @@ public:
   
   virtual bool serialize(SerializedObject &object) const
   {
-    size_t s = sizeof(id) + sizeof(timestamp) + data.size()*sizeof(ByteType) + sizeof(size_t);
+    size_t s = sizeof(id) + sizeof(timestamp) + sizeof(tsensor) + sizeof(tillum) + data.size()*sizeof(ByteType) + sizeof(size_t);
     
     object.resize(s);
     
     object.put((const char *)&id, sizeof(id));
     object.put((const char *)&timestamp, sizeof(timestamp));
-    
+    object.put((const char *)&tsensor, sizeof(tsensor));
+    object.put((const char *)&tillum, sizeof(tillum));
+
     s = data.size();
     object.put((const char *)&s, sizeof(s));
-    
     object.put((const char *)data.data(), sizeof(ByteType)*data.size());
     return true;
   }
@@ -749,7 +754,9 @@ public:
     size_t s;
     if(!object.get((char *)&id, sizeof(id)) ||
     !object.get((char *)&timestamp, sizeof(timestamp)) ||
-    !object.get((char *)&s, sizeof(s)))
+       !object.get((char *)&tsensor, sizeof(tsensor)) ||
+       !object.get((char *)&tillum, sizeof(tillum)) ||
+       !object.get((char *)&s, sizeof(s)))
       return false;
     
     data.resize(s);
@@ -761,6 +768,97 @@ public:
 };
 
 typedef Ptr<RawDataFrame> RawDataFramePtr;
+
+
+
+class POINTCLOUD_EXPORT RawDataFrame_V2 : public RawDataFrame
+{
+public:
+	int type = 0;
+	virtual Ptr<Frame> copy() const
+	{
+		Ptr<Frame> f(new RawDataFrame_V2());
+		return copyTo(f);
+	}
+
+	virtual Ptr<Frame> copyTo(Ptr<Frame> &other) const
+	{
+		if (!other || !isSameType(*other))
+			other = Ptr<Frame>(new RawDataFrame_V2());
+
+		auto *r = dynamic_cast<RawDataFrame_V2 *>(other.get());
+		r->id = id;
+		r->type = type;
+		r->timestamp = timestamp;
+		r->tsensor = tsensor;
+		r->tillum = tillum;
+		r->data = data;
+
+		return other;
+	}
+
+	virtual Ptr<Frame> newFrame() const
+	{
+		RawDataFrame_V2 *r = new RawDataFrame_V2();
+		r->data.resize(data.size());
+		return FramePtr(r);
+	}
+
+	virtual bool isSameType(const Frame &other) const
+	{
+		const RawDataFrame_V2 *f = dynamic_cast<const RawDataFrame_V2 *>(&other);
+		return f;
+	}
+
+	virtual bool isSameSize(const Frame &other) const
+	{
+		const RawDataFrame_V2 *f = dynamic_cast<const RawDataFrame_V2 *>(&other);
+		return f && data.size() == f->data.size();
+	}
+
+	static Ptr<RawDataFrame_V2> typeCast(FramePtr ptr)
+	{
+		return std::dynamic_pointer_cast<RawDataFrame_V2>(ptr);
+	}
+
+	virtual bool serialize(SerializedObject &object) const
+	{
+		size_t s = sizeof(id) + sizeof(type) + sizeof(timestamp) + sizeof(tsensor) + sizeof(tillum) + data.size() * sizeof(ByteType) + sizeof(size_t);
+
+		object.resize(s);
+
+		object.put((const char *)&id, sizeof(id));
+		object.put((const char *)&type, sizeof(type));
+		object.put((const char *)&timestamp, sizeof(timestamp));
+		object.put((const char *)&tsensor, sizeof(tsensor));
+		object.put((const char *)&tillum, sizeof(tillum));
+
+		s = data.size();
+		object.put((const char *)&s, sizeof(s));
+		object.put((const char *)data.data(), sizeof(ByteType)*data.size());
+		return true;
+	}
+
+	virtual bool deserialize(SerializedObject &object)
+	{
+		size_t s;
+		if (!object.get((char *)&id, sizeof(id)) ||
+			!object.get((char *)&type, sizeof(type)) ||
+			!object.get((char *)&timestamp, sizeof(timestamp)) ||
+			!object.get((char *)&tsensor, sizeof(tsensor)) ||
+			!object.get((char *)&tillum, sizeof(tillum)) ||
+			!object.get((char *)&s, sizeof(s)))
+			return false;
+
+		data.resize(s);
+
+		return object.get((char *)data.data(), sizeof(ByteType)*data.size());
+	}
+
+	virtual ~RawDataFrame_V2() {}
+};
+
+typedef Ptr<RawDataFrame_V2> RawDataFrameV2Ptr;
 
 
 class POINTCLOUD_EXPORT PointCloudFrame : public Frame

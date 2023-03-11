@@ -13,14 +13,22 @@
 
 #define FILE_PREFIX "file:"
 #define ROOT_PROFILE 1
-#define CALIB_DISABLE "calib_disable"
+#define DEFINING_PARAMS     "defining_params"
+#define AMP_THREHOLD        "amp_threhold"
+#define UNAMBIGUOUS_RANGE   "unambiguous_range"
 
-#define PHASE_CORR_1 "phase_corr_1"
-#define PHASE_CORR_2 "phase_corr_2"
-#define PHASE_LIN_COEFF1 "phase_lin_coeff1"
-#define PHASE_LIN_COEFF2 "phase_lin_coeff2"
-#define PIXCELWISE_CORR "phasecorrection"
+#define CALIB_DISABLE       "calib_disable"
+#define FISHEYE_ENABLE      "fisheye_enable"
+#define PHASE_CORR_1        "phase_corr_1"
+#define PHASE_CORR_2        "phase_corr_2"
+#define PHASE_LIN_COEFF1    "phase_lin_coeff1"
+#define PHASE_LIN_COEFF2    "phase_lin_coeff2"
+#define PIXCELWISE_CORR     "phasecorrection"
 
+#define CALIB_TILLUM        "calib_tillum"
+#define CALIB_TSENSOR       "calib_tsensor"
+#define COEFF_TILLUM         "coeff_tillum"
+#define COEFF_TSENSOR        "coeff_tsensor"
 namespace PointCloud
 {
 
@@ -392,6 +400,7 @@ public:
   inline void setHardwareConfigSerializer(const HardwareSerializerPtr &hardwareSerializer) { _hardwareSerializer = hardwareSerializer; }
   
   virtual String get(const String &section, const String &name) const;
+  virtual bool set(const String &section, const String &name, const String &value);
   virtual bool isPresent(const String &section, const String &name, bool includeParent = true) const;
   
   int addCameraProfile(const String &profileName, const int parentID = -1);

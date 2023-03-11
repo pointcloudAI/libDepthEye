@@ -39,4 +39,4 @@
 #  endif
 #endif
 
-#endif /* TOFCAM_EXPORT_H */
+#endif

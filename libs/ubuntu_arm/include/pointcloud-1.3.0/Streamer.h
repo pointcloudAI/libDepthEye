@@ -31,11 +31,14 @@ protected:
   TimeStampType _currentTimeStamp = 0;
   
   bool _isRunning = false;
+  bool _isPause = false;
   int  _measureCalibMode = 0;
   bool _isRawDataProvidedOnly = false;
   virtual bool _start(CameraType camType) = 0;
   virtual bool _capture(RawDataFramePtr &p) = 0;
   virtual bool _stop() = 0;
+  virtual bool _pause() = 0;
+  virtual bool _resume() = 0;
   
 public:
   Streamer(DevicePtr device): _device(device) {}
@@ -44,11 +47,14 @@ public:
   
   virtual bool isInitialized() = 0;
   virtual bool isRunning() { return _isRunning; }
+  virtual bool isPause() { return _isPause; }
   
   virtual bool start(CameraType camType);
   virtual bool capture(RawDataFramePtr &p);
   virtual bool stop();
-  
+  virtual bool pause();
+  virtual bool resume();
+
   virtual bool getSupportedVideoModes(Vector<VideoMode> &videoModes) = 0;
   virtual bool getCurrentVideoMode(VideoMode &videoMode) = 0;
   virtual bool setVideoMode(const VideoMode &videoMode) = 0;

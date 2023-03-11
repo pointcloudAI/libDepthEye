@@ -109,6 +109,23 @@ typedef std::istringstream InputStringStream;
 
 struct Version { uint8_t major, minor; };
 
+enum FrameType
+{
+	UNKOWN_FRAME_TYPE = 0,
+	RAW_A_SUB_B_TYPE = 1,
+	RAW_A_PLUS_B_TYPE = 2,
+	RAW_A_AND_B_TYPE = 4,
+	II_IQ_TYPE = 8,
+	PHA_AMP_TYPE = 16,
+	DEPTH_TYPE = 32,
+	POINTCLOUD_TYPE = 64
+};
+
+
+#define RAW_PHASE_TYPE ( II_IQ_TYPE | RAW_A_AND_B_TYPE | RAW_A_PLUS_B_TYPE | RAW_A_SUB_B_TYPE )
+#define PHASE_TYPE ( PHA_AMP_TYPE | II_IQ_TYPE | RAW_A_AND_B_TYPE | RAW_A_PLUS_B_TYPE | RAW_A_SUB_B_TYPE)
+#define CALBACK_TYPE ( POINTCLOUD_TYPE | DEPTH_TYPE | PHA_AMP_TYPE | II_IQ_TYPE  | RAW_A_SUB_B_TYPE)
+
 /// String functions
 String POINTCLOUD_EXPORT getHex(uint16_t value);
 void POINTCLOUD_EXPORT split(const String &str, const char delimiter, Vector<String> &split);

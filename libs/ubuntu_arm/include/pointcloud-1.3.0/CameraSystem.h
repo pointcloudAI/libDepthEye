@@ -40,9 +40,11 @@ public:
     bool addDepthCameraFactory(DepthCameraFactoryPtr factory);
     bool getFrameGenerator(uint8_t frameType, GeneratorIDType generatorID, FrameGeneratorPtr &frameGenerator);
 protected:
-    void _init();
+    void init();
     void _loadLibraries(const Vector<String> &paths);
 protected:
+    bool    _init;
+    String _deviceID;
     Vector<DepthCameraLibraryPtr> _libraries;
     Map<String, DepthCameraFactoryPtr> _factories; // Key = device ID as returned by Device::id()
     Map<String, DepthCameraPtr> _depthCameras; // Key = device ID as returned by Device::id()

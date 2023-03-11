@@ -38,13 +38,20 @@ public:
   typedef Function<void(const String &)> LoggerOutStreamFunctionType;
 protected:
   LoggerOutStreamFunctionType _outputFunction;
-  
+    bool _bOutput;
   OutputStringStream _s;
   
 public:
-  LoggerOutStream() {}
+  LoggerOutStream()
+  {
+      _outputFunction = 0;
+      _bOutput = false;
+  }
   
-  void setOutputFunction(LoggerOutStreamFunctionType o) { _outputFunction = o; }
+  void setOutputFunction(LoggerOutStreamFunctionType o) {
+      _outputFunction = o;
+      _bOutput =true;
+  }
   
   template <typename T>
   LoggerOutStream &operator <<(const T &value)
@@ -54,7 +61,7 @@ public:
     
     _s << value;
     
-    if(_s.tellp() > 0) // Something written?
+    if(_s.tellp() > 0 && _bOutput) // Something written?
     {
       _outputFunction(_s.str());
       _s.clear();
@@ -177,6 +184,9 @@ public:
   virtual ~Logger()
   {
   }
+
+  std::string path_file = "./debugLog.txt";
+  
 };
 
 extern Logger POINTCLOUD_EXPORT logger;
