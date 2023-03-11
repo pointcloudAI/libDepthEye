@@ -34,7 +34,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
       set(COMMON_INCLUDE
          /usr/include/libusb-1.0
          ./include/
-         ./libs/ubuntu_arm/include/pointcloud-1.0.0/
+         ./libs/ubuntu_arm/include/pointcloud-1.3.0/
        )
        set(PointCloud ./libs/ubuntu_arm/lib)
      elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "armv7l")
