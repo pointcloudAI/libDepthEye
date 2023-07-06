@@ -12,8 +12,8 @@ set_target_properties(PointCloud::pointcloud PROPERTIES
   IMPORTED_SONAME_RELEASE "libpointcloud.so"
   )
 
-list(APPEND _IMPORT_CHECK_TARGETS PointCloud::pointcloud )
-list(APPEND _IMPORT_CHECK_FILES_FOR_PointCloud::pointcloud "${_IMPORT_PREFIX}/lib/libpointcloud.so" )
+list(APPEND _cmake_import_check_targets PointCloud::pointcloud )
+list(APPEND _cmake_import_check_files_for_PointCloud::pointcloud "${_IMPORT_PREFIX}/lib/libpointcloud.so" )
 
 # Commands beyond this point should not need to know the version.
 set(CMAKE_IMPORT_FILE_VERSION)
